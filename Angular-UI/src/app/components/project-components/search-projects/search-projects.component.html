@@ -1,0 +1,56 @@
+<div class="panel-group">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Search User</div>
+    <div class="panel-body">
+      <div *ngIf="projectList!=undefined && projectList.length>0; else EmptyProjectList">
+        <div class="row" style="margin-bottom:15px">
+          <div class="col-sm-12">
+            <div class="col-sm-3" style="padding-left:0">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <div class="col-sm-9 text-right" style="padding-right:0"
+              *ngIf="projectList!=undefined && projectList.length>0">
+              <strong>Sort By:</strong>
+              <button class="btn btn-default" (click)="sortProjectsByStartDate()" style="margin-left:10px;">Start Date
+                <span class="glyphicon"
+                  [ngClass]="{'glyphicon-arrow-up':sortStartDateAsc===true,'glyphicon-arrow-down':sortStartDateAsc===false}"></span>
+              </button>
+              <button class="btn btn-default" (click)="sortProjectsByEndDate()" style="margin-left:15px;">End Date
+                <span class="glyphicon"
+                  [ngClass]="{'glyphicon-arrow-up':sortEndDateAsc===true,'glyphicon-arrow-down':sortEndDateAsc===false}"></span>
+              </button>
+              <button class="btn btn-default" (click)="sortProjectsByPriority()" style="margin-left:15px;">Priority
+                <span class="glyphicon"
+                  [ngClass]="{'glyphicon-arrow-up':sortPriorityAsc===true,'glyphicon-arrow-down':sortPriorityAsc===false}"></span>
+              </button>
+              <button class="btn btn-default" (click)="sortProjectsByStatus()" style="margin-left:15px;">Completed
+                <span class="glyphicon"
+                  [ngClass]="{'glyphicon-arrow-up':sortedStatusAsc===true,'glyphicon-arrow-down':sortedStatusAsc===false}"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="flex-container">
+          <div class="row col-sm-12" *ngFor="let project of projectList">
+            <ul class="list-group col-sm-10" style="columns: 2; grid-column-gap: 0px;cursor: pointer;">
+              <li class="list-group-item">Project: {{project.name}}</li>
+              <li class="list-group-item">No of Tasks: {{project.noOfTasks}}</li>
+              <li class="list-group-item">Start Date: {{project.startDate | date: 'MM/dd/yyyy'}}</li>
+              <li class="list-group-item">Priority: {{project.priority}}</li>
+              <li class="list-group-item">Completed: {{project.noOfCompletedTasks}}</li>
+              <li class="list-group-item">End Date: {{project.endDate | date: 'MM/dd/yyyy'}}</li>
+            </ul>
+            <div class="view-buttons">
+              <button class="btn btn-primary col-sm-2 glyphicon glyphicon-edit vertical-button"
+                (click)="editProject(project)">&nbsp;Update</button>
+              <button class="btn btn-danger col-sm-2 glyphicon glyphicon glyphicon-pause vertical-button"
+                (click)="deleteProject(project)">&nbsp;Suspend</button>
+            </div>
+          </div>
+          <!-- <span *ngIf="projectList===undefined || projectList.length===0">No project exist.</span> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #EmptyProjectList>No project exists.</ng-template>

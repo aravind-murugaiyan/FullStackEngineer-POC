@@ -1,0 +1,90 @@
+<div class="panel-group">
+  <div class="panel panel-primary">
+    <div class="panel-heading">New Project</div>
+    <div class="panel-body">
+      <div class="form-horizontal" action="#">
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="projName">Project:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="projName" placeholder="Enter Project name"
+              [(ngModel)]="data.name">
+          </div>
+        </div>
+      </div>
+      <div class="form-inline" style="margin-left: 191px">
+        <div class="form-group">
+          <label class="control-label"><input type="checkbox" class="form-control" id="chkProjectDates"
+              [(ngModel)]=data.enableStartAndEndDates>&nbsp;Set Start
+            and End Date</label>
+        </div>
+        <div class="form-group">
+          <input type="date" class="form-control" id="projectStartDate" name="projectStartDate"
+            placeholder="Select Start Date" [(ngModel)]="data.startDate" disabled={{!data.enableStartAndEndDates}}>
+        </div>
+        <div class="form-group">
+          <input type="date" class="form-control" name="projectEndDate" placeholder="Select End Date"
+            [(ngModel)]="data.endDate" disabled={{!data.enableStartAndEndDates}}>
+        </div>
+      </div>
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="sldPriority">Priority:</label>
+          <div class="col-sm-10">
+            <ng5-slider [(value)]="data.priority" [options]="{
+                floor: 0,
+                ceil: 30
+              }"></ng5-slider>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="txtManager">Manager:</label>
+          <div class="col-sm-8" *ngIf="data.user!=undefined; else userData">
+            <input type="text" class="form-control" id="txtManager" placeholder="Enter Manager Name" readonly
+              [(ngModel)]="data.user.firstName===undefined && data.user.lastName===undefined ? undefined : data.user.firstName + ' ' + data.user.lastName">
+          </div>
+          <button type="submit" class="btn btn-primary col-sm-1 glyphicon glyphicon-search form-sub-button" id="btnSearchManager"
+            (click)="openModal(userModal)">&nbsp;Search</button>
+        </div>
+        <div class="form-group" style="text-align: right">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary glyphicon glyphicon-edit form-button" style="margin-right: 10px"
+              (click)="updateProject()" [style.display]="isEditMode ? 'inline' : 'none'">&nbsp;Update</button>
+            <button type="submit" class="btn btn-primary glyphicon glyphicon-plus form-button" style="margin-right: 10px"
+              (click)="addProject()" [style.display]="isEditMode ? 'none' : 'inline'">&nbsp;Add</button>
+            <button type="reset" class="btn btn-default glyphicon glyphicon-refresh form-button"
+              (click)="resetProject()">&nbsp;Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #userModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Search User</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row" style="margin-bottom:15px">
+      <div class="col-sm-12">
+        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTextUser">
+      </div>
+    </div>
+    <div class="list-group">
+      <a class="list-group-item" *ngFor="let user of userList|filteruser:{firstName:searchTextUser
+        ,lastName:searchTextUser}" (click)="selectManager(user)">{{user.firstName+' ' +user.lastName}}</a>
+    </div>
+  </div>
+  <div class="modal-footer text-right">
+    <button class="btn btn-primary" (click)="selectUser()">Ok</button>
+    <button class="btn btn-default" (click)="modalRef.hide();selectedIndexUser=null;">Cancel</button>
+  </div>
+</ng-template>
+
+<ng-template #userData>
+  <div class="col-sm-8">
+    <input type="text" class="form-control" id="txtManager" placeholder="Enter Manager Name" readonly>
+  </div>
+</ng-template>

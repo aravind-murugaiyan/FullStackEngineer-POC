@@ -1,0 +1,49 @@
+<div class="panel-group">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Search User</div>
+    <div class="panel-body">
+      <div *ngIf="userList!=undefined && userList.length>0; else EmptyUserList">
+        <div class="row" style="margin-bottom:15px">
+          <div class="col-sm-12">
+            <div class="col-sm-3" style="padding-left:0">
+              <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText">
+            </div>
+            <div class="col-sm-9 text-right" style="padding-right:0" *ngIf="userList!=undefined && userList.length>0;">
+              <strong>Sort:</strong>
+              <button class="btn btn-default" (click)="sortUserByFirstName()" style="margin-left:10px;">First Name
+                <span class="glyphicon"
+                  [ngClass]="{'glyphicon-arrow-up':sortAscFirstName===true,'glyphicon-arrow-down':sortAscFirstName===false}"></span>
+              </button>
+              <button class="btn btn-default" (click)="sortUserByLastName()" style="margin-left:15px;">Last Name
+                <span class="glyphicon"
+                  [ngClass]="{'glyphicon-arrow-up':sortAscLastName===true,'glyphicon-arrow-down':sortAscLastName===false}"></span>
+              </button>
+              <button class="btn btn-default" (click)="sortUserByEmpId()" style="margin-left:15px;">Employee Id
+                <span class="glyphicon"
+                  [ngClass]="{'glyphicon-arrow-up':sortAscEmpId===true,'glyphicon-arrow-down':sortAscEmpId===false}"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="flex-container">
+          <div class="row col-sm-12"
+            *ngFor="let user of userList|filteruser:{firstName:searchText,lastName:searchText,employeeId:searchText}">
+            <ul class="list-group col-sm-10 listItem">
+              <li class="list-group-item">First Name: {{user.firstName}}</li>
+              <li class="list-group-item">Last: Name: {{user.lastName}}</li>
+              <li class="list-group-item">Employee Id: {{user.employeeId}}</li>
+            </ul>
+            <div class="view-buttons">
+              <button class="btn btn-primary col-sm-2 glyphicon glyphicon-edit vertical-button"
+                (click)="editUser(user)">&nbsp;Edit</button>
+              <button class="btn btn-danger col-sm-2 glyphicon glyphicon-trash vertical-button"
+                (click)="deleteUser(user)">&nbsp;Delete</button>
+            </div>
+          </div>
+          <span *ngIf="userList===undefined || userList.length===0">No users exist.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #EmptyUserList>No User Exists.</ng-template>

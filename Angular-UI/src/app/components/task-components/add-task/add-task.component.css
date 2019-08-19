@@ -1,0 +1,12 @@
+.subform{
+    margin-left:190px;
+}
+
+div.form-inline > div.form-group > label,div.form-inline > div.form-group > input{
+margin-right: 15px;
+}
+
+a.selectable:hover
+{
+    cursor: pointer;
+}

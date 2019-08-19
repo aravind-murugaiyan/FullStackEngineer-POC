@@ -1,0 +1,21 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/ProjectManager/bin
+/ProjectManager/obj
+/ProjectManager.Tests/bin
+/ProjectManager.Tests/obj
+
+#API Logs
+/ProjectManager/ApiLogs
+
+# dependencies
+/packages
+
+# IDEs and editors
+/.vs
+
+# System Files
+.DS_Store
+Thumbs.db
+.user
