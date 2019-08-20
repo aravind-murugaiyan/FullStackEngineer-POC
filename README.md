@@ -30,13 +30,13 @@ Angular Code Setup:
 Deployment Step for Web API:
 
 1. Give proper permissions to the Webapi published code. 
-2. Host the RestService_Published in IIS. 
+2. Host the WebAPI_Published in IIS. 
 3. Update the connectionString details in Web.config with your database details.
 
 Angular UI Setup:
 
 1. Give proper permissions to the Angular UI published code. 
-2. Host the Angular_Frontend_Dist in IIS. 
+2. Host the Angular_UI_Dist in IIS. 
 3. Update the URL for web api service in the below files by replacing http://localhost:50830/ with service hosted IIS URL
     a. main-es2015.42dd3198b3ac27452948.js 
     b. main-es5.7bbe4589883ae6a86c23.js
